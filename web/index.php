@@ -1,6 +1,7 @@
 <?php
 // Simply open the rekons.json file and fetch a random line from it
 $q = $_GET['q'] ?? null; // optionally allow a specific id to be fetched
+$platform = $_GET['platform'] ?? "web";
 $file = "rekons.json";
 $fh = fopen($file, 'r');
 $fcontents = fread($fh, filesize($file));
@@ -32,7 +33,7 @@ if ($q != null && !is_numeric($q)) {
 
   foreach ($data['rekon'] as $id => $val) {
     if (preg_match("/{$q}/i", $val)) {
-      if ($results > 0) echo "\n\r";
+      if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r";
       echo $val;
       $results++;
     }

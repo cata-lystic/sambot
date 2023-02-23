@@ -21,7 +21,7 @@ class Samaritan(commands.Cog):
     async def rekon(self, ctx, choice=""):
         """Gets a random Sam rekon."""
         try:
-            async with aiohttp.request("GET", "https://sambot.frwd.app?q="+choice, headers={"Accept": "text/plain"}) as r:
+            async with aiohttp.request("GET", "https://sambot.frwd.app?q="+choice+"&platform=discord", headers={"Accept": "text/plain"}) as r:
                 if r.status != 200:
                     return await ctx.send("Oops! Cannot get a Sam rekon...")
                 result = await r.text(encoding="UTF-8")
