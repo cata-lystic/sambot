@@ -47,7 +47,7 @@ if ($q != null && !is_numeric($q)) {
   }
 
   if (count($matches) == 0) {
-    echo "No rekons found related to $q";
+    echo "No rekons found related to `$q`";
   } else {
     if ($shuffle == 1) shuffle($matches);
     foreach($matches as $id => $val) {
