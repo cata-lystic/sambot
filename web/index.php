@@ -5,27 +5,14 @@ if (isset($_GET['code'])) {
   die();
 }
 
-// Shuffle associated array
-function shuffle_assoc($arr) {
-  $keys = array_keys($arr);
-
-  shuffle($keys);
-
-  foreach($keys as $key) {
-    $new[$key] = $arr[$key];
-  }
-
-  $arr = $new;
-  return $arr;
-}
-
 // Get possible queries
-$q = $_GET['q'] ?? null; // optionally allow a specific id to be fetched
+$q = $_GET['q'] ?? null; // allow a specific ID to be fetched
 $limit = $_GET['limit'] ?? 3; // amount of search results to return
 $shuffle = $_GET['shuffle'] ?? 1; // shuffle search results
 $showID = $_GET['showID'] ?? 0; // show unique ID before each rekon
-$platform = $_GET['platform'] ?? "web"; // anything besides "web" will have /r/n instead of <br /> between rekons
+$platform = $_GET['platform'] ?? "web"; // anything besides "web" will be plain text mode
 $quotes = $_GET['quotes'] ?? ""; // no quotes by default
+$js = $_GET['js'] ?? 1; // web javascript features enabled by default
 if ($platform == "discord") {
   $quotes = "`"; // force Discord rekons to be in a quote box
   $limit = ($limit > 5) ? 5 : $limit; // Discord limit can't go past 5
@@ -79,7 +66,7 @@ if ($q == "list" && $platform == "web") {
     $results = 0;
     foreach($matches as $ids => $vals) {
       if ($results > $limit-1) break; // stop after the $limit
-      if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r";
+      if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r"; // different line breaks per platform
       $thisID = ($showID == 1) ? "#".$ids.": " : null;
       echo "{$thisID}{$quotes}{$vals}{$quotes}";
       $results++;
@@ -108,11 +95,34 @@ if ($platform == "web") {
 
     <p>Rekon by word search<br />
     <a href='{$domain}?q=multiple word search&limit=3'>{$domain}?q=multiple words&limit=3&shuffle=1</a></p>
-  </div>
-  
-  <script src='jquery-3.6.3.min.js'></script>
-  <script src='sambot.js'></script>";
+
+    <p>Other flags (with defaults)<br />
+    &js=1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript on web page<br />
+    &showID=0&nbsp;&nbsp;&nbsp;&nbsp;Show ID of rekon<br />
+    &amp;quotes=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mark to put around each rekon (\", ', `, etc)</p>
+  </div>";
+
+  if ($js == 1) {
+    echo "
+    <script src='jquery-3.6.3.min.js'></script>
+    <script src='sambot.js'></script>";
+  }
 
 }
-?>
 
+// Functions
+
+// Shuffle associated array
+function shuffle_assoc($arr) {
+  $keys = array_keys($arr);
+
+  shuffle($keys);
+
+  foreach($keys as $key) {
+    $new[$key] = $arr[$key];
+  }
+
+  $arr = $new;
+  return $arr;
+}
+?>
