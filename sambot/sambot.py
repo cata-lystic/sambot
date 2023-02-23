@@ -28,7 +28,7 @@ class Samaritan(commands.Cog):
         **.rekon "multiple words"** - Rekon search multiple words
         """
         try:
-            async with aiohttp.request("GET", "https://sambot.frwd.app?q="+query+"&limit="+limit+"&shuffle="+shuffle+"&platform=discord", headers={"Accept": "text/plain"}) as r:
+            async with aiohttp.request("GET", "https://sambot.frwd.app?q="+query+"&limit="+str(limit)+"&shuffle="+str(shuffle)+"&platform=discord", headers={"Accept": "text/plain"}) as r:
                 if r.status != 200:
                     return await ctx.send("Oops! Cannot get a Sam rekon...")
                 result = await r.text(encoding="UTF-8")
