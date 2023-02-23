@@ -1,8 +1,8 @@
 {
     "author": ["Catalyst"],
-    "description": "Gets a random Samaritan quote or rekoning",
-    "install_msg": "Gets a random Samaritan quote or rekoning. Thanks for installing.",
-    "short": "Random Samaritan quote or rekoning",
+    "description": "Gets a random Samaritan rekoning",
+    "install_msg": "Gets a random Samaritan rekoning. Thanks for installing.",
+    "short": "Random Samaritan rekoning",
     "tags": ["quotes", "rekoning", "jokes"],
     "type": "COG",
     "end_user_data_statement": "This cog does not persistently store data or metadata about users."

@@ -19,7 +19,14 @@ class Samaritan(commands.Cog):
 
     @commands.command()
     async def rekon(self, ctx, choice=""):
-        """Gets a random Sam rekon."""
+        """Gets a random Sam rekon.
+        Queries
+        .rekon - Get random rekoning
+        .rekon list - Show link to rekon list
+        .rekon 25 - Show rekon by ID #
+        .rekon word - Rekon search single word
+        .rekon "multiple words" - Rekon search multiple words
+        """
         try:
             async with aiohttp.request("GET", "https://sambot.frwd.app?q="+choice+"&platform=discord", headers={"Accept": "text/plain"}) as r:
                 if r.status != 200:
