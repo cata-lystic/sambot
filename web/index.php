@@ -32,7 +32,8 @@ if ($q != null && !is_numeric($q)) {
 
   foreach ($data['rekon'] as $id => $val) {
     if (preg_match("/{$q}/i", $val)) {
-      echo $val."\n\r";
+      if ($results > 0) echo "\n\r";
+      echo $val;
       $results++;
     }
   }
