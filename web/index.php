@@ -29,17 +29,25 @@ if ($q == null || is_numeric($q)) {
 // If $q is a string, search each rekon to see if that word is in it
 if ($q != null && !is_numeric($q)) {
 
-  $results = 0;
+  $matches = [];
 
   foreach ($data['rekon'] as $id => $val) {
     if (preg_match("/{$q}/i", $val)) {
-      if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r";
-      echo $val;
-      $results++;
+      //if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r";
+      $matches[] = $val;
     }
   }
 
-  if ($results == 0) { echo "No rekons found related to $q"; }
+  if (count($matches) == 0) {
+    echo "No rekons found related to $q";
+  } else {
+    shuffle($matches);
+    foreach($matches as $id => $val) {
+      if ($id > 0) echo ($platform == "web") ? "<br />" : "\n\r";
+      echo $val;
+      if ($id > 1) break;
+    }
+  }
 
 }
 
