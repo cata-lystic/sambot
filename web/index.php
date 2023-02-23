@@ -100,10 +100,11 @@ if ($platform == "web") {
 
     <p>Rekon by word search<br />
     <a href='{$domain}?q=multiple word search&limit=3'>{$domain}?q=multiple words&limit=3&shuffle=1</a></p>
-  </div>";
+  </div>
+  
+  <script src='jquery-3.6.3.min.js'></script>
+  <script src='sambot.js'></script>";
 
 }
 ?>
 
-<script src="jquery-3.6.3.min.js"></script>
-<script src="sambot.js"></script>
