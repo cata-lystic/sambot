@@ -30,7 +30,7 @@ $total = count($data['rekon']); // total rekons
 // ?q=list creates an entire list of rekons and then quits
 if ($q == "list" && $platform == "web") {
   foreach ($data['rekon'] as $id => $val) {
-    echo "<p>#{$id}: $val</p>";
+    echo "<p class='rekon'>#{$id}: $val</p>";
   }
 
 // ?q=list for a non-web platform just shows a link to the list page
@@ -79,7 +79,7 @@ if ($q == "list" && $platform == "web") {
 if ($platform == "web") {
 
   echo "
-  <div id='info' style='position: fixed; right: 5%; bottom: 5%; background: #cccccc; padding: 3px 10px;'>
+  <div id='info' style='position: fixed; right: 2%; bottom: 4%; background: #cccccc; padding: 3px 10px;'>
     <h1>API</h1>
     <p>Random rekon<br />
     <a href='{$domain}'>{$domain}</a></p>
@@ -101,6 +101,15 @@ if ($platform == "web") {
     &showID=0&nbsp;&nbsp;&nbsp;&nbsp;Show ID of rekon<br />
     &amp;quotes=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mark to put around each rekon (\", ', `, etc)</p>
   </div>";
+
+  // Search Bar for Web
+  if ($platform == "web" && $q == "list") {
+    echo "
+    <div id='search' style='position: fixed; top: 4%; right: 2%;'>
+      <input type='text' id='searchbox' /> <input type='button' value='Search' />
+    </div>
+    ";
+  }
 
   if ($js == 1) {
     echo "
