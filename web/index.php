@@ -1,4 +1,9 @@
 <?php
+// Show the source code if requested
+if (isset($_GET['code'])) {
+  highlight_file("index.php");
+  die();
+}
 
 // Shuffle associated array
 function shuffle_assoc($arr) {
