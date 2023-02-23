@@ -28,7 +28,7 @@ if ($q == null || is_numeric($q)) {
   if ($rand > $total) {
     echo "I need to rekon more to get to #".$rand;
   } else {
-    echo $data['rekon'][$rand];
+    echo "`".$data['rekon'][$rand]."`";
   }
 }
 
@@ -49,7 +49,7 @@ if ($q != null && !is_numeric($q)) {
     shuffle($matches);
     foreach($matches as $id => $val) {
       if ($id > 0) echo ($platform == "web") ? "<br />" : "\n\r";
-      echo $val;
+      echo "`".$val."`";
       if ($id > 1) break;
     }
   }

@@ -28,4 +28,4 @@ class Samaritan(commands.Cog):
         except aiohttp.ClientConnectionError:
             return await ctx.send("Oops! Cannot get a Sam rekon...")
 
-        await ctx.send(f"<:samaritan:1078116149029519491> `{result}`")
+        await ctx.send(f"<:samaritan:1078116149029519491> {result}")
