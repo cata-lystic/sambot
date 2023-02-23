@@ -21,7 +21,10 @@ $shuffle = $_GET['shuffle'] ?? 1; // shuffle search results
 $showID = $_GET['showID'] ?? 0; // show unique ID before each rekon
 $platform = $_GET['platform'] ?? "web"; // anything besides "web" will have /r/n instead of <br /> between rekons
 $quotes = $_GET['quotes'] ?? ""; // no quotes by default
-if ($platform == "discord") $quotes = "`"; // force Discord rekons to be in a quote box
+if ($platform == "discord") {
+  $quotes = "`"; // force Discord rekons to be in a quote box
+  $limit = ($limit > 5) ? 5 : $limit; // Discord limit can't go past 5
+}
 $domain = "https://sambot.frwd.app"; // i'm lazy
 
 // Get file contents of rekons.json
