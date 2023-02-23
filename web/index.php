@@ -1,18 +1,24 @@
 <?php
-// Simply open the rekons.json file and fetch a random line from it
+// Get possible queries
 $q = $_GET['q'] ?? null; // optionally allow a specific id to be fetched
-$platform = $_GET['platform'] ?? "web";
+$platform = $_GET['platform'] ?? "web"; // anything besides "web" will have /r/n instead of <br /> between rekons
+
+// Get file contents of rekons.json
 $file = "rekons.json";
 $fh = fopen($file, 'r');
 $fcontents = fread($fh, filesize($file));
 fclose($fh);
 $data = json_decode($fcontents, true);
-$total = count($data['rekon']);
+$total = count($data['rekon']); // total rekons
 
-if ($q == "list") {
+// ?q=list creates an entire list of rekons and then quits
+if ($q == "list" && $platform == "web") {
   foreach ($data['rekon'] as $id => $val) {
     echo "<p>#{$id}: $val</p>";
   }
+  die();
+} else if ($q == "list" && $platform != "web") {
+  echo "Full list of rekons can be found at https://sambot.frwd.app?q=list";
   die();
 }
 
@@ -33,7 +39,6 @@ if ($q != null && !is_numeric($q)) {
 
   foreach ($data['rekon'] as $id => $val) {
     if (preg_match("/{$q}/i", $val)) {
-      //if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r";
       $matches[] = $val;
     }
   }
