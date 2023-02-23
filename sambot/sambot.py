@@ -18,7 +18,7 @@ class Samaritan(commands.Cog):
         await ctx.send(f"<:samaritan:1078116149029519491>")
 
     @commands.command()
-    async def rekon(self, ctx, query="", limit=3, shuffle=1):
+    async def rekon(self, ctx, query="", limit=3, shuffle=1, showID=0):
         """Gets a random Sam rekon.
 
         **.rekon** - Get random rekoning
@@ -28,7 +28,7 @@ class Samaritan(commands.Cog):
         **.rekon "multiple words"** - Rekon search multiple words
         """
         try:
-            async with aiohttp.request("GET", "https://sambot.frwd.app?q="+query+"&limit="+str(limit)+"&shuffle="+str(shuffle)+"&platform=discord", headers={"Accept": "text/plain"}) as r:
+            async with aiohttp.request("GET", "https://sambot.frwd.app?q="+query+"&limit="+str(limit)+"&shuffle="+str(shuffle)+"&showID="+str(showID)+"&platform=discord", headers={"Accept": "text/plain"}) as r:
                 if r.status != 200:
                     return await ctx.send("Oops! Cannot get a Sam rekon...")
                 result = await r.text(encoding="UTF-8")
