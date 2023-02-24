@@ -24,7 +24,7 @@ function search() {
   }).done(function (data, textStatus, errorThrown) {
     $("#content").html(data)
     // Change the URL for easy copy/pasting
-    ChangeUrl("test", "?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&platform="+platform+"&breaks=1")
+    ChangeUrl("test", "?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&breaks=1")
   })
 }
 
