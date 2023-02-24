@@ -12,7 +12,7 @@ $shuffle = $_GET['shuffle'] ?? 1; // shuffle search results
 $showID = $_GET['showID'] ?? 0; // show unique ID before each rekon
 $platform = $_GET['platform'] ?? "web"; // anything besides "web" will be plain text mode
 $quotes = $_GET['quotes'] ?? ""; // no quotes by default
-$breaks = $_GET['breaks'] ?? 1; // prefer <br /> over /n/r
+$breaks = $_GET['breaks'] ?? 0; // prefer <br /> over /n/r (web will overwrite this)
 $js = $_GET['js'] ?? 1; // web javascript features enabled by default
 if ($platform == "discord") {
   $quotes = "`"; // force Discord rekons to be in a quote box
@@ -28,7 +28,7 @@ fclose($fh);
 $data = json_decode($fcontents, true);
 $total = count($data['rekon']); // total rekons
 
-if ($platform == "web") echo "<div id='content'>"; // create the content div for web for javascript search
+if ($platform == "web") echo "<title>do u rekon?</title><div id='content'>"; // create the content div for web for javascript search
 
 // ?q=list creates an entire list of rekons and then quits
 if ($q == "list" && $platform == "web") {
@@ -84,7 +84,7 @@ if ($platform == "web") echo "</div>"; // end content div for web
 if ($platform == "web") {
 
   echo "
-  <div id='info' style='position: fixed; right: 2%; bottom: 4%; background: #cccccc; padding: 3px 10px;'>
+  <div id='info' style='position: fixed; right: 1%; bottom: 2%; background: #cccccc; padding: 3px 10px;'>
     <h1>API</h1>
     <p>Random rekon<br />
     <a href='{$domain}'>{$domain}</a></p>
@@ -112,9 +112,11 @@ if ($platform == "web") {
     $shuffleChecked = ($shuffle == 1) ? "checked" : null;
     $showIDChecked = ($showID == 1) ? "check" : null;
     echo "
-    <div id='search' style='position: fixed; top: 4%; right: 2%;'>
+    <div id='search' style='position: fixed; top: 1%; right: 1%;'>
       <form method='get' action='index.php'>
-        <input type='text' id='searchbox' name='q' placeholder='Search...' value='{$q}' /> Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'> Shuffle: <input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Show ID: <input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'> <input id='searchSubmit' type='submit' value='Search' />
+        <p><input type='text' id='searchbox' name='q' placeholder='Search...' value='{$q}' /><p>
+        <p>Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'> Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'></p>
+        <p><input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Shuffle <input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Show ID</p> <input id='searchSubmit' type='submit' value='Search' />
         <input type='hidden' id='searchJS' name='js' value='0' />
       </form>
     </div>
