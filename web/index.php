@@ -12,6 +12,7 @@ $shuffle = $_GET['shuffle'] ?? 1; // shuffle search results
 $showID = $_GET['showID'] ?? 0; // show unique ID before each rekon
 $platform = $_GET['platform'] ?? "web"; // anything besides "web" will be plain text mode
 $quotes = $_GET['quotes'] ?? ""; // no quotes by default
+$breaks = $_GET['breaks'] ?? 1; // prefer <br /> over /n/r
 $js = $_GET['js'] ?? 1; // web javascript features enabled by default
 if ($platform == "discord") {
   $quotes = "`"; // force Discord rekons to be in a quote box
@@ -26,6 +27,8 @@ $fcontents = fread($fh, filesize($file));
 fclose($fh);
 $data = json_decode($fcontents, true);
 $total = count($data['rekon']); // total rekons
+
+if ($platform == "web") echo "<div id='content'>"; // create the content div for web for javascript search
 
 // ?q=list creates an entire list of rekons and then quits
 if ($q == "list" && $platform == "web") {
@@ -66,7 +69,7 @@ if ($q == "list" && $platform == "web") {
     $results = 0;
     foreach($matches as $ids => $vals) {
       if ($results > $limit-1) break; // stop after the $limit
-      if ($results > 0) echo ($platform == "web") ? "<br />" : "\n\r"; // different line breaks per platform
+      if ($results > 0) echo ($platform == "web" || $breaks == 1) ? "<br />" : "\n\r"; // different line breaks per platform
       $thisID = ($showID == 1) ? "#".$ids.": " : null;
       echo "{$thisID}{$quotes}{$vals}{$quotes}";
       $results++;
@@ -74,6 +77,8 @@ if ($q == "list" && $platform == "web") {
   }
 
 }
+
+if ($platform == "web") echo "</div>"; // end content div for web
 
 // Show the API info box to the web users
 if ($platform == "web") {
@@ -103,10 +108,15 @@ if ($platform == "web") {
   </div>";
 
   // Search Bar for Web
-  if ($platform == "web" && $q == "list") {
+  if ($platform == "web") {
+    $shuffleChecked = ($shuffle == 1) ? "checked" : null;
+    $showIDChecked = ($showID == 1) ? "check" : null;
     echo "
     <div id='search' style='position: fixed; top: 4%; right: 2%;'>
-      <input type='text' id='searchbox' /> <input type='button' value='Search' />
+      <form method='get' action='index.php'>
+        <input type='text' id='searchbox' name='q' placeholder='Search...' value='{$q}' /> Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'> Shuffle: <input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Show ID: <input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'> <input id='searchSubmit' type='submit' value='Search' />
+        <input type='hidden' id='searchJS' name='js' value='0' />
+      </form>
     </div>
     ";
   }
