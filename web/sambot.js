@@ -35,6 +35,6 @@ function ChangeUrl(title, url) {
       var obj = { Title: title, Url: url };
       history.pushState(obj, obj.Title, obj.Url);
   } else {
-      alert("Browser does not support HTML5.");
+      console.log("Browser does not support HTML5.");
   }
 }

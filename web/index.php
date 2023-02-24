@@ -7,7 +7,7 @@ if (isset($_GET['code'])) {
 
 // Get possible queries
 $q = $_GET['q'] ?? null; // allow a specific ID to be fetched
-$limit = $_GET['limit'] ?? 3; // amount of search results to return
+$limit = $_GET['limit'] ?? 500; // amount of search results to return
 $shuffle = $_GET['shuffle'] ?? 1; // shuffle search results
 $showID = $_GET['showID'] ?? 0; // show unique ID before each rekon
 $platform = $_GET['platform'] ?? "web"; // anything besides "web" will be plain text mode
@@ -110,7 +110,7 @@ if ($platform == "web") {
     <p>Rekon by word search<br />
     <a href='{$domain}?q=multiple word search&limit=3'>{$domain}?q=multiple words&limit=3&shuffle=1</a></p>
 
-    <p>Other flags (with defaults)<br />
+    <p>Other flags<br />
     &js=1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript on web page<br />
     &showID=0&nbsp;&nbsp;&nbsp;&nbsp;Show ID of rekon<br />
     &amp;quotes=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mark to put around each rekon (\", ', `, etc)<br />
@@ -125,7 +125,7 @@ if ($platform == "web") {
     <div id='search' style='position: fixed; top: 1%; right: 1%;'>
       <form id='searchForm' method='get' action='index.php'>
         <p><input type='text' id='searchbox' name='q' placeholder='Search...' value='{$q}' /><p>
-        <p><label>Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'></label> <label>Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'></label></p>
+        <p><label>Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='4'></label> <label>Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'></label></p>
         <p><label><input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Shuffle</label> <label><input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Show ID</label></p> <input id='searchSubmit' type='submit' value='Search' />
         <input type='hidden' id='searchJS' name='js' value='0' />
       </form>
