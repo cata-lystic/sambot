@@ -9,15 +9,7 @@ $.expr[":"].contains = $.expr.createPseudo(function(arg) {
   };
 });
 
-$(document).on("keyup", "#searchbox", function(e) {
-  /*
-    let search = $(this).val()
-    console.log("Search: "+search)
-    $("p.rekon").hide()
-    $("p.rekon:contains('"+search+"')").show()
-  */
-    search()
-})
+$(document).on("change keyup", "#searchForm", function(e) { search() })
 
 function search() {
   let searchQuery = $("#searchbox").val()
@@ -31,5 +23,16 @@ function search() {
     cache: false
   }).done(function (data, textStatus, errorThrown) {
     $("#content").html(data)
+    // Change the URL for easy copy/pasting
+    ChangeUrl("test", "?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&platform="+platform+"&breaks=1")
   })
+}
+
+function ChangeUrl(title, url) {
+  if (typeof (history.pushState) != "undefined") {
+      var obj = { Title: title, Url: url };
+      history.pushState(obj, obj.Title, obj.Url);
+  } else {
+      alert("Browser does not support HTML5.");
+  }
 }

@@ -104,7 +104,8 @@ if ($platform == "web") {
     <p>Other flags (with defaults)<br />
     &js=1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Javascript on web page<br />
     &showID=0&nbsp;&nbsp;&nbsp;&nbsp;Show ID of rekon<br />
-    &amp;quotes=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mark to put around each rekon (\", ', `, etc)</p>
+    &amp;quotes=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mark to put around each rekon (\", ', `, etc)<br />
+    &breaks=0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return &lt;br /&gt; instead of \\n\\r</p>
   </div>";
 
   // Search Bar for Web
@@ -113,7 +114,7 @@ if ($platform == "web") {
     $showIDChecked = ($showID == 1) ? "check" : null;
     echo "
     <div id='search' style='position: fixed; top: 1%; right: 1%;'>
-      <form method='get' action='index.php'>
+      <form id='searchForm' method='get' action='index.php'>
         <p><input type='text' id='searchbox' name='q' placeholder='Search...' value='{$q}' /><p>
         <p>Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'> Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'></p>
         <p><input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Shuffle <input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Show ID</p> <input id='searchSubmit' type='submit' value='Search' />
