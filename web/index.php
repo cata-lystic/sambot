@@ -31,13 +31,13 @@ $total = count($data['rekon']); // total rekons
 if ($platform == "web") echo "<title>do u rekon?</title><div id='content'>"; // create the content div for web for javascript search
 
 // ?q=list creates an entire list of rekons and then quits
-if ($q == "list" && $platform == "web") {
+if ($q == "list" && $platform != "discord") {
   foreach ($data['rekon'] as $id => $val) {
     echo "<p class='rekon'>#{$id}: $val</p>";
   }
 
 // ?q=list for a non-web platform just shows a link to the list page
-} else if ($q == "list" && $platform != "web") {
+} else if ($q == "list" && $platform == "discord") {
   echo "Full list of rekons can be found at {$domain}?q=list";
 
 // If $q is numeric or empty, fetch a random or desired ID
@@ -116,8 +116,8 @@ if ($platform == "web") {
     <div id='search' style='position: fixed; top: 1%; right: 1%;'>
       <form id='searchForm' method='get' action='index.php'>
         <p><input type='text' id='searchbox' name='q' placeholder='Search...' value='{$q}' /><p>
-        <p>Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'> Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'></p>
-        <p><input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Shuffle <input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Show ID</p> <input id='searchSubmit' type='submit' value='Search' />
+        <p><label>Limit: <input type='number' id='searchLimit' name='limit' value='{$limit}' size='3'></label> <label>Quotes: <input type='text' id='searchQuotes' name='quotes' value='{$quotes}' size='3'></label></p>
+        <p><label><input type='checkbox' id='searchShuffle' name='shuffle' value='1' {$shuffleChecked}> Shuffle</label> <label><input type='checkbox' id='searchShowID' name='showID' {$showIDChecked} /> Show ID</label></p> <input id='searchSubmit' type='submit' value='Search' />
         <input type='hidden' id='searchJS' name='js' value='0' />
       </form>
     </div>

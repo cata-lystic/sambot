@@ -14,17 +14,19 @@ $(document).on("change keyup", "#searchForm", function(e) { search() })
 function search() {
   let searchQuery = $("#searchbox").val()
   let limit = $("#searchLimit").val()
+  let quotes = $("#searchQuotes").val()
   let shuffle = ($("#searchShuffle").prop("checked")) ? 1 : 0 
   let showID = ($("#searchShowID").prop("checked")) ? 1 : 0
   let platform = "api"
+  if (searchQuery == "") searchQuery = "list"
   $.ajax({
     type: "GET",
-    url: "index.php?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&platform="+platform+"&breaks=1",
+    url: "index.php?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&quotes="+quotes+"&platform="+platform+"&breaks=1",
     cache: false
   }).done(function (data, textStatus, errorThrown) {
     $("#content").html(data)
     // Change the URL for easy copy/pasting
-    ChangeUrl("test", "?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&breaks=1")
+    ChangeUrl("test", "?q="+searchQuery+"&limit="+limit+"&shuffle="+shuffle+"&showID="+showID+"&quotes="+quotes+"&breaks=1")
   })
 }
 
