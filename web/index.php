@@ -28,12 +28,21 @@ fclose($fh);
 $data = json_decode($fcontents, true);
 $total = count($data['rekon']); // total rekons
 
-if ($platform == "web") echo "<title>do u rekon?</title><div id='content'>"; // create the content div for web for javascript search
+if ($platform == "web") {
+  echo "<title>do u rekon?</title>
+
+  <style>a { color: #e9e5e5; }</style>
+
+  <body style='background: #212121; color: #e9e5e5;'>
+  
+  <div id='content'>"; // create the content div for web for javascript search
+}
 
 // ?q=list creates an entire list of rekons and then quits
 if ($q == "list" && $platform != "discord") {
   foreach ($data['rekon'] as $id => $val) {
-    echo "<p class='rekon'>#{$id}: $val</p>";
+    $thisID = ($showID == 1) ? "#{$id}: " : null;
+    echo "<p class='rekon'>{$thisID}{$val}</p>";
   }
 
 // ?q=list for a non-web platform just shows a link to the list page
@@ -84,7 +93,7 @@ if ($platform == "web") echo "</div>"; // end content div for web
 if ($platform == "web") {
 
   echo "
-  <div id='info' style='position: fixed; right: 1%; bottom: 2%; background: #cccccc; padding: 3px 10px;'>
+  <div id='info' style='position: fixed; right: 1%; bottom: 2%; background: #393939; color: #e9e5e5; padding: 3px 10px;'>
     <h1>API</h1>
     <p>Random rekon<br />
     <a href='{$domain}'>{$domain}</a></p>
